@@ -13,19 +13,21 @@ class AddPost extends React.Component {
 
     render() {
         return (
-            <form className="addPost"
+            <form className="addPost jumbotron"
                   onSubmit={this.handleSubmit}>
                 <input type="text"
                        placeholder="title"
                        value={this.state.title}
                        onChange={event => this.setState({title: event.target.value})}
                        required />
+                       <br/>
                 <textarea
                     placeholder="Content"
                     value={this.state.postContent}
                     onChange={event => this.setState({postContent: event.target.value})}
                     required />
-                <button>Add Post</button>
+                    <br/>
+                <button className="btn btn-light">Add Post</button>
             </form>
         );
     }

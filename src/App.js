@@ -18,7 +18,7 @@ class App extends React.Component {
         return (
             <Router>
                 <div className="App">
-                    <button>
+                    <button className="btn btn-light">
                         <Link to='/addPost'>Add Post</Link>
                     </button>
 

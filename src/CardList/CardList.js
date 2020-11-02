@@ -4,7 +4,7 @@ import Card from "../Card/Card";
 class CardList extends React.Component {
     render() {
         return (
-            <div>
+            <div className="list-group">
                 {this.props.posts.map(post => <Card {...post} />)}
             </div>
         );
