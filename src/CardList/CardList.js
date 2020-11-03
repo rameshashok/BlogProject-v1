@@ -6,9 +6,11 @@ class CardList extends React.Component {
     render() {
         return (
             <>
-                <button className="btn btn-light addPost">
-                    <Link to='/addPost'>Add Post</Link>
-                </button>
+                <Link to='/addPost'>
+                    <button className="btn btn-light addPost">
+                        Add Post
+                    </button>
+                </Link>
 
                 <div className="list-group">
                     {this.props.posts.map(post => <Card {...post} />)}
