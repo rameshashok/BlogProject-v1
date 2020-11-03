@@ -1,7 +1,7 @@
 import React from 'react';
 import AddPost from "./AddPost/AddPost";
 import CardList from "./CardList/CardList";
-import {BrowserRouter as Router, Link, Switch, Route} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 class App extends React.Component {
     state = {
@@ -18,16 +18,14 @@ class App extends React.Component {
         return (
             <Router>
                 <div className="App">
-                    <button className="btn btn-light">
-                        <Link to='/addPost'>Add Post</Link>
-                    </button>
-
                     <Switch>
                         <Route path='/addPost'>
                             <AddPost onSubmit={this.addNewPost} />
                         </Route>
+                        <Route path="/" exact>
+                            <CardList posts={this.state.posts} />
+                        </Route>
                     </Switch>
-                    <CardList posts={this.state.posts} />
                 </div>
             </Router>
         );
