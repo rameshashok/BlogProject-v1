@@ -1,20 +1,33 @@
 import React from "react";
 import {Redirect} from "react-router";
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { EditorState } from 'draft-js';
 
 class AddPost extends React.Component {
     state = {
         title: '',
-        postContent: '',
-        toHome: false
+        // postContent: '',
+        toHome: false,
+        postContent: EditorState.createEmpty()
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.onSubmit({title: this.state.title, postContent: this.state.postContent});
+        this.props.onSubmit({
+            title: this.state.title,
+            // postContent: this.state.postContent
+        });
         this.setState(() => ({toHome: true}));
     };
 
+    onEditorStateChange = (postContent) => {
+        this.setState({postContent})
+    }
+
     render() {
+        const { postContent } = this.state;
+
         if (this.state.toHome === true) {
             return <Redirect to="/" />
         }
@@ -29,11 +42,15 @@ class AddPost extends React.Component {
                        onChange={event => this.setState({title: event.target.value})}
                        required />
                        <br/>
-                <textarea
+                <Editor
                     placeholder="Content"
                     className="form-control blogContent"
-                    value={this.state.postContent}
-                    onChange={event => this.setState({postContent: event.target.value})}
+                    // value={this.state.postContent}
+                    // onChange={event => this.setState({postContent: event.target.value})}
+                    postContent={postContent}
+                    wrapperClassName="demo-wrapper"
+                    editorClassName="demo-editor"
+                    onEditorStateChange={this.onEditorStateChange}
                     required />
                     <br/>
                 <button className="btn btn-light addPost">
