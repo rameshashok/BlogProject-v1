@@ -25,6 +25,12 @@ class AddPost extends React.Component {
         this.setState({postContent})
     }
 
+    imageUpload = (src) => {
+        this.setState(() => (
+            {postContent: {data: { link: src}}}
+        ))
+    };
+
     render() {
         const { postContent } = this.state;
 
@@ -50,6 +56,13 @@ class AddPost extends React.Component {
                     postContent={postContent}
                     wrapperClassName="demo-wrapper"
                     editorClassName="demo-editor"
+                    toolbarClassName="toolbar-class"
+                    toolbar={{
+                        image: {
+                            uploadEnabled: true,
+                            uploadCallback: this.imageUpload
+                        }
+                    }}
                     onEditorStateChange={this.onEditorStateChange}
                     required />
                     <br/>
