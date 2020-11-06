@@ -13,8 +13,8 @@ class AddPost extends React.Component {
         title: '',
         // postContent: '',
         toHome: false,
-        postContent: {}
-        // postContent: EditorState.createEmpty(),
+        // postContent: {}
+        postContent: EditorState.createEmpty(),
         // postContent: EditorState.createWithContent(convertFromRaw(initialState))
     };
 
@@ -34,7 +34,8 @@ class AddPost extends React.Component {
 
     imageUpload = (src) => {
         this.setState(() => (
-            this.state.postContent.data.link = src
+            // this.state.postContent.data.link = src
+            {postContent: {data: {link: src}}}
         ))
     };
 
@@ -61,7 +62,7 @@ class AddPost extends React.Component {
                     // value={this.state.postContent}
                     // onChange={event => this.setState({postContent: event.target.value})}
                     postContent={postContent}
-                    initialContentState={postContent}
+                    // initialContentState={postContent}
                     wrapperClassName="demo-wrapper"
                     editorClassName="demo-editor"
                     toolbarClassName="toolbar-class"
