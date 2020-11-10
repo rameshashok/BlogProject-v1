@@ -31,3 +31,7 @@ html {
 .title {
   font-weight: bold;
 }
+
+.content-display-toolbar {
+  height: 0;
+}
