@@ -22,8 +22,18 @@ class AddPost extends React.Component {
 
     onEditorStateChange = (postContent) => {
         this.setState({postContent});
-        console.log({postContent})
     }
+
+    uploadImageCallBack = (file) => {
+        return new Promise(
+            (resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = e => resolve({ data: { link: e.target.result } });
+                reader.onerror = e => reject(e);
+                reader.readAsDataURL(file);
+            }
+        );
+    };
 
     render() {
         const { postContent } = this.state;
@@ -46,9 +56,17 @@ class AddPost extends React.Component {
                     placeholder="Content"
                     className="form-control blogContent"
                     postContent={postContent}
-                    wrapperClassName="demo-wrapper"
-                    editorClassName="demo-editor"
                     onEditorStateChange={this.onEditorStateChange}
+                    toolbar={{
+                        image: {
+                            uploadCallback: this.uploadImageCallBack,
+                            alt: {
+                                present: true,
+                                mandatory: true
+                            },
+                            previewImage: true
+                        }
+                    }}
                     required />
                     <br/>
                 <button className="btn btn-light addPost">
