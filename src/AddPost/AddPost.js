@@ -2,7 +2,8 @@ import React from "react";
 import {Redirect} from "react-router";
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { EditorState } from 'draft-js';
+import {convertToRaw, EditorState} from 'draft-js';
+import draftToHtml from "draftjs-to-html";
 
 class AddPost extends React.Component {
     state = {
@@ -13,9 +14,15 @@ class AddPost extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        const encodedPostContent =
+            btoa(
+                draftToHtml(
+                    convertToRaw(this.state.postContent.getCurrentContent())
+                )
+            );
         this.props.onSubmit({
             title: this.state.title,
-            postContent: this.state.postContent
+            postContent: encodedPostContent
         });
         this.setState(() => ({toHome: true}));
     };

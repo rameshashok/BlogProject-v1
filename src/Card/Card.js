@@ -1,6 +1,4 @@
 import React from "react";
-import { convertToRaw } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
 import { EditorState, ContentState } from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
 import { Editor } from 'react-draft-wysiwyg';
@@ -8,10 +6,8 @@ import { Editor } from 'react-draft-wysiwyg';
 class Card extends React.Component {
     constructor(props) {
         super(props);
-        const html = draftToHtml(
-            convertToRaw(this.props.postContent.getCurrentContent())
-        );
-        const contentBlock = htmlToDraft(html);
+        const decodedPostContent = atob(this.props.postContent)
+        const contentBlock = htmlToDraft(decodedPostContent);
         if (contentBlock) {
             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
             const editorState = EditorState.createWithContent(contentState);
