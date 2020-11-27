@@ -4,6 +4,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import {convertToRaw, EditorState} from 'draft-js';
 import draftToHtml from "draftjs-to-html";
+import axios from "axios";
 
 class AddPost extends React.Component {
     state = {
@@ -20,10 +21,21 @@ class AddPost extends React.Component {
                     convertToRaw(this.state.postContent.getCurrentContent())
                 )
             );
-        this.props.onSubmit({
+
+        const postData = {
             title: this.state.title,
             postContent: encodedPostContent
-        });
+        }
+
+        this.props.onSubmit(postData);
+
+        axios
+            .post("http://localhost:8080/blog/save", postData, {headers: {"Content-Type": "application/json;charset=UTF-8", "Access-Control-Allow-Origin": "*"}})
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            });
+
         this.setState(() => ({toHome: true}));
     };
 
