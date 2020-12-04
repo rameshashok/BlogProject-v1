@@ -6,7 +6,7 @@ import { Editor } from 'react-draft-wysiwyg';
 class Card extends React.Component {
     constructor(props) {
         super(props);
-        const decodedPostContent = atob(this.props.postContent)
+        const decodedPostContent = atob(this.props.postContent);
         const contentBlock = htmlToDraft(decodedPostContent);
         if (contentBlock) {
             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);

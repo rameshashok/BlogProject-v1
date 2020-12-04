@@ -13,7 +13,7 @@ class CardList extends React.Component {
                 </Link>
 
                 <div className="list-group">
-                    {this.props.posts.map(post => <Card {...post} />)}
+                    {this.props.posts.map(post => <Card {...post} key={post.id} />)}
                 </div>
             </>
         );

@@ -30,13 +30,20 @@ class AddPost extends React.Component {
         this.props.onSubmit(postData);
 
         axios
-            .post("http://localhost:8081/blog/save", postData, {headers: {"Content-Type": "application/json;charset=UTF-8", "Access-Control-Allow-Origin": "*"}})
+            .post("http://localhost:8081/blog/save",
+                postData,
+                {
+                    headers:
+                        {
+                            "Content-Type": "application/json;charset=UTF-8",
+                            "Access-Control-Allow-Origin": "*"
+                        }
+                }
+                )
             .then(res => {
                 console.log(res);
-                console.log(res.data);
+                this.setState(() => ({toHome: true}));
             });
-
-        this.setState(() => ({toHome: true}));
     };
 
     onEditorStateChange = (postContent) => {
@@ -58,7 +65,7 @@ class AddPost extends React.Component {
         const { postContent } = this.state;
 
         if (this.state.toHome === true) {
-            return <Redirect to="/" />
+            return <Redirect to="/" refresh="true" />
         }
 
         return (

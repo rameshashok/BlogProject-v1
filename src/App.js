@@ -2,6 +2,7 @@ import React from 'react';
 import AddPost from "./AddPost/AddPost";
 import CardList from "./CardList/CardList";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import axios from "axios";
 
 class App extends React.Component {
     state = {
@@ -9,9 +10,15 @@ class App extends React.Component {
     };
 
     addNewPost = (postData) => {
-        this.setState(prevState => ({
-            posts: [...prevState.posts, postData]
-        }));
+        setTimeout(
+            () => 
+            (axios.get(`http://localhost:8081/blog/posts`)
+            .then(res => {
+                this.setState({
+                    posts: res.data,
+                });
+            })), 2000
+        );
     };
 
     render() {
